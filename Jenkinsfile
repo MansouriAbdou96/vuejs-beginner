@@ -5,20 +5,24 @@ pipeline {
     stages {
         stage('build') {
            steps {
-                sh '''
-                    npm install 
-                    npm run build 
-                '''
+                nodejs('node-v9'){
+                    sh '''
+                        npm install 
+                        npm run build 
+                    '''
+                }
            } 
         }
 
         stage('scan') {
            steps {
-                sh '''
-                    npm install
-                    npm audit fix --audit-level=critical --force
-                    npm audit --audit-level=critical
-                '''
+                nodejs('node-v9'){
+                    sh '''
+                        npm install
+                        npm audit fix --audit-level=critical --force
+                        npm audit --audit-level=critical
+                    '''
+                } 
            } 
         }
 
