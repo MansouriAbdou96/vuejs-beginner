@@ -5,7 +5,7 @@ pipeline {
     stages {
         stage('build') {
            steps {
-                nodejs('node-v9'){
+                nodejs('node-v10.2'){
                     sh '''
                         npm install 
                         npm run build 
@@ -16,7 +16,7 @@ pipeline {
 
         stage('scan') {
            steps {
-                nodejs('node-v9'){
+                nodejs('node-v10.2'){
                     sh '''
                         npm install
                         npm audit --audit-level=critical
