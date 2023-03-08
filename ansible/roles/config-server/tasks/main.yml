@@ -1,0 +1,44 @@
+---
+
+- name: Create /var/www directory
+  file:
+    path: /var/www
+    state: directory
+    owner: root
+    group: root
+    mode: '0755'
+    
+- name: Update package list
+  yum:
+    name: '*'
+    state: latest
+
+- name: Install EPEL repository
+  command: amazon-linux-extras install epel
+
+- name: Install Nginx
+  yum:
+    name: nginx
+    state: latest
+
+- name: Copy nginx.conf file to /etc/nginx
+  copy:
+    src: nginx.conf
+    dest: /etc/nginx/nginx.conf
+    owner: root
+    group: root
+    mode: '0644'
+
+- name: Start Nginx service
+  systemd:
+    name: nginx
+    enabled: yes
+    state: started
+
+- name: Check Nginx version
+  command: nginx -v
+  register: nginx_version
+
+- name: Display Nginx version
+  debug:
+    var: nginx_version.stdout_lines
