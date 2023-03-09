@@ -22,15 +22,26 @@ pipeline {
 
         stage('create Infra') {
             steps {
-                dir('terraform') {
+                 withCredentials([[
+                  $class: 'AmazonWebServicesCredentialsBinding',
+                  credentialsId: 'my-aws-creds',
+                  accessKeyVariable: 'AWS_ACCESS_KEY_ID',
+                  secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
+                ]]) {
                     sh '''
-                        terraform init 
-                        terraform validate 
-                        terraform apply -var "buildID=${BUILD_ID}" -auto-approve 
-
-                        terraform output -raw vuejs-ip >> ../ansible/inventory.txt
+                        aws configure set aws_session_token '$AWS_SESSION_TOKEN' 
                     '''
+                    dir('terraform') {
+                        sh '''
+                            terraform init 
+                            terraform validate 
+                            terraform apply -var "buildID=${BUILD_ID}" -auto-approve 
+
+                            terraform output -raw vuejs-ip >> ../ansible/inventory.txt
+                        '''
+                    }
                 }
+                
             }
 
             post {
