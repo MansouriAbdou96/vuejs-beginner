@@ -2,18 +2,18 @@
 
 - name: creates directory
   file: 
-    path: ~/dist
+    path: /home/ec2-user/dist
     state: directory
 
 - name: Extract the zipped artifact
   unarchive:
     src: /var/jenkins_home/workspace/vuejs-pipeline/artifact.tar.gz
-    dest: ~/dist
+    dest: /home/ec2-user/dist
 
 - name: Move dist folder to /var/www
   become: true
   ansible.builtin.file:
-    src: ~/dist
+    src: /home/ec2-user/dist
     dest: /etc/var/www/dist
     state: directory
 
