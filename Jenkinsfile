@@ -22,12 +22,7 @@ pipeline {
 
         stage('create Infra') {
             steps {
-                 withCredentials([[
-                  $class: 'AmazonWebServicesCredentialsBinding',
-                  credentialsId: 'my-aws-creds',
-                  accessKeyVariable: 'AWS_ACCESS_KEY_ID',
-                  secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
-                ]]) {
+                withAWS(credentials: 'my-aws-creds') {
                     sh '''
                         aws configure set aws_session_token '$AWS_SESSION_TOKEN' 
                     '''
