@@ -13,3 +13,8 @@ variable "key-name" {
   description = "Private key of the ec2"
   type        = string
 }
+
+variable "buildID" {
+  description = "Jenkins build ID"
+  type        = string
+}

@@ -37,6 +37,6 @@ resource "aws_instance" "vuejs_server" {
   security_groups = [aws_security_group.vuejsSecGroup.name]
 
   tags = {
-    "Name" = "vuejs-beginner"
+    "Name" = "vuejs-beginner-${var.buildID}"
   }
 }

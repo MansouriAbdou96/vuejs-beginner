@@ -26,7 +26,7 @@ pipeline {
                     sh '''
                         terraform init 
                         terraform validate 
-                        terraform apply -auto-approve
+                        terraform apply -var "buildID=${BUILD_ID}" -auto-approve 
 
                         terraform output -raw vuejs-ip >> ../ansible/inventory.txt
                     '''
