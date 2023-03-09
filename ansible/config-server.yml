@@ -19,12 +19,6 @@
         port: 22
         timeout: 600
 
-    - name: "install python for Ansible."
-      become: yes
-      yum:
-        name: python3
-        state: latest
-
   roles:
     - config-server
     - deploy
