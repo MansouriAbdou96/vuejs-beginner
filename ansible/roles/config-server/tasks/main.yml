@@ -14,6 +14,7 @@
     state: latest
 
 - name: Install EPEL repository
+  become: true
   command: amazon-linux-extras install -y nginx1
 
 - name: Copy nginx.conf file to /etc/nginx

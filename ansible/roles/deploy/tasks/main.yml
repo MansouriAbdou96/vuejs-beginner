@@ -7,10 +7,11 @@
 
 - name: Extract the zipped artifact
   unarchive:
-    src: /home/jenkins/workspace/vuejs-pipeline/artifact.tar.gz
+    src: artifact.tar.gz
     dest: ~/dist
 
 - name: Move dist folder to /var/www
+  become: true
   ansible.builtin.file:
     src: ~/dist
     dest: /etc/var/www/dist
