@@ -14,12 +14,7 @@
     state: latest
 
 - name: Install EPEL repository
-  command: amazon-linux-extras install epel
-
-- name: Install Nginx
-  yum:
-    name: nginx
-    state: latest
+  command: amazon-linux-extras install -y nginx1
 
 - name: Copy nginx.conf file to /etc/nginx
   copy:
