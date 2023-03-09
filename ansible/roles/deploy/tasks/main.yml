@@ -14,7 +14,7 @@
   become: true
   ansible.builtin.file:
     src: /home/ec2-user/dist
-    dest: /etc/var/www/dist
+    dest: /var/www/dist
     state: directory
 
 - name: Start Nginx service
