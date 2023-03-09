@@ -7,7 +7,7 @@
 
 - name: Extract the zipped artifact
   unarchive:
-    src: artifact.tar.gz
+    src: /var/jenkins_home/workspace/vuejs-pipeline/artifact.tar.gz
     dest: ~/dist
 
 - name: Move dist folder to /var/www

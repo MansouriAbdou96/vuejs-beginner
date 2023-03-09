@@ -13,7 +13,7 @@
     name: '*'
     state: latest
 
-- name: Install EPEL repository
+- name: Install nginx 
   become: true
   command: amazon-linux-extras install -y nginx1
 
