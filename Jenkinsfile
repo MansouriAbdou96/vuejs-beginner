@@ -47,6 +47,7 @@ pipeline {
             post {
                 always {
                     archiveArtifacts artifacts: 'ansible/inventory.txt'
+                    archiveArtifacts artifacts: 'terraform/terraform.tfstate'
                 }
             }
         }

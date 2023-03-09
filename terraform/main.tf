@@ -5,7 +5,7 @@ provider "aws" {
 
 resource "aws_security_group" "vuejsSecGroup" {
   description = "Allowing port 80 and 22"
-  name        = "vuejs-beginner"
+  name        = "vuejs-beginner-${var.buildID}"
 
   ingress {
     from_port   = 22
