@@ -12,10 +12,7 @@
 
 - name: Move folder using file module
   become: true
-  file:
-    src: /home/ec2-user/dist/
-    dest: /var/www/
-    state: directory
+  command: mv /home/ec2-user/dist /var/www/
 
 - name: Start Nginx service
   systemd:
