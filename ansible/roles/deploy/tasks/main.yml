@@ -10,12 +10,12 @@
     src: /var/jenkins_home/workspace/vuejs-pipeline/artifact.tar.gz
     dest: /home/ec2-user/dist
 
-- name: Move dist folder to /var/www
+- name: Move folder using file module
   become: true
-  ansible.builtin.file:
-    src: /home/ec2-user/dist
+  file:
+    src: /home/ec2-user/dist/
     dest: /var/www/
-    state: directory
+    state: move
 
 - name: Start Nginx service
   systemd:
