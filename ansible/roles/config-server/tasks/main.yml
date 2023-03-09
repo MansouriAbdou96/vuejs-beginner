@@ -34,11 +34,3 @@
     name: nginx
     enabled: yes
     state: started
-
-- name: Check Nginx version
-  command: nginx -v
-  register: nginx_version
-
-- name: Display Nginx version
-  debug:
-    var: nginx_version.stdout_lines

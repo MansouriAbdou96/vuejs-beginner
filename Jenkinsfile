@@ -5,52 +5,36 @@ pipeline {
     stages {
         stage('build') {
            steps {
-                nodejs('node-v10.2'){
+                nodejs('node-v9'){
                     sh '''
                         npm install 
                         npm run build 
                     '''
                 }
            } 
+
+           post {
+                always {
+                    archiveArtifacts artifacts: 'dist/'
+                }
+           }
         }
 
-        stage('scan') {
-           steps {
-                nodejs('node-v10.2'){
+        stage('configure & deploy') {
+            steps{
+                sshagent(credentials: ['vuejs-key']){
+
                     sh '''
-                        npm install
-                        npm audit --audit-level=critical
+                        tar -C dist -czvf artifact.tar.gz .
                     '''
-                } 
-           } 
+                    dir('ansible') {
+                        sh '''
+                            ansible-playbook -i inventory.txt config-server.yml
+                        '''
+                    }
+                }
+            }
         }
-
-        // stage('configure server') {
-        //     steps{
-        //         sshagent(credentials: ['vuejs-key']){
-        //             dir('ansible') {
-        //                 sh '''
-        //                     ansible-playbook -i inventory.txt config-server.yml
-        //                 '''
-        //             }
-        //         }
-        //     }
-        // }
-
-        // stage('deploy') {
-        //    steps {
-
-        //         sh '''
-        //             npm install 
-        //             npm run build 
-
-        //             scp -r /dist ec2-user@ec2-xx-xx-xxx-xxx.compute-1.amazonaws.com:/var/www/myapp/
-        //         '''
-
-        //         // TODO: move the dist folder to /var/www/ 
-        //         // TODO: restart nginx 
-        //    } 
-        // }
 
         // stage('smoke test') {
         //    steps {

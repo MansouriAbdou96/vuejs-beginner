@@ -1,0 +1,24 @@
+---
+
+- name: creates directory
+  file: 
+    path: ~/dist
+    state: directory
+
+- name: Extract the zipped artifact
+  unarchive:
+    src: /home/jenkins/workspace/vuejs-pipeline/artifact.tar.gz
+    dest: ~/dist
+
+- name: Move dist folder to /var/www
+  ansible.builtin.file:
+    src: ~/dist
+    dest: /etc/var/www/dist
+    state: directory
+
+- name: Start Nginx service
+  systemd:
+    name: nginx
+    enabled: yes
+    state: restarted
+
