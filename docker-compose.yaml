@@ -1,0 +1,25 @@
+version: '3'
+
+services:
+  nginx:
+    image: nginx:1.23.3
+    container_name: nginx
+    ports:
+      - "8081:80"
+    volumes:
+      - ./nginx:/etc/nginx/conf.d
+      - nginx_html:/usr/share/nginx/html
+    command: ["nginx", "-g", "daemon off;"]
+
+  jenkins:
+    image: mansouri96/myjenkins:1.1
+    container_name: jenkins
+    ports:
+      - "8082:8080"
+      - "50000:50000"
+    volumes:
+      - jenkins_home:/var/jenkins_home
+
+volumes:
+  nginx_html:
+  jenkins_home:
