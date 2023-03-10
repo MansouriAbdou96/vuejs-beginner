@@ -1,6 +1,5 @@
 pipeline {
     agent any 
-    // TODO: use jenkinsn agent that has nodejs 8 or 9 
 
     stages {
         stage('build') {
